@@ -1,54 +1,30 @@
-# Remotion video
+# Remotion video - Tic Tac Toe (Ocean Professional)
 
-<p align="center">
-  <a href="https://github.com/remotion-dev/logo">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://github.com/remotion-dev/logo/raw/main/animated-logo-banner-dark.gif">
-      <img alt="Animated Remotion Logo" src="https://github.com/remotion-dev/logo/raw/main/animated-logo-banner-light.gif">
-    </picture>
-  </a>
-</p>
+This project contains a modern, minimalist Tic Tac Toe UI implemented using Remotion, following the Ocean Professional theme (primary #2563EB, secondary #F59E0B, text #111827).
 
-Welcome to your Remotion project!
+## Run
 
-## Commands
-
-**Install Dependencies**
-
+Install dependencies:
 ```console
 npm i
 ```
 
-**Start Preview**
-
+Start Remotion Studio:
 ```console
 npm run dev
 ```
 
-**Render video**
+In the left sidebar, select the `TicTacToe` composition to preview the interactive board. You can click cells to play and use the Reset button to restart.
+
+## Render (optional)
 
 ```console
-npx remotion render
+npx remotion render src/index.ts TicTacToe out/tictactoe.mp4
 ```
 
-**Upgrade Remotion**
+## Notes
 
-```console
-npx remotion upgrade
-```
+- The board is centered with a status display at the top and reset controls below.
+- Smooth transitions, rounded corners, subtle gradients, and accent colors are applied for interactivity.
 
-## Docs
-
-Get started with Remotion by reading the [fundamentals page](https://www.remotion.dev/docs/the-fundamentals).
-
-## Help
-
-We provide help on our [Discord server](https://discord.gg/6VzzNDwUwV).
-
-## Issues
-
-Found an issue with Remotion? [File an issue here](https://github.com/remotion-dev/remotion/issues/new).
-
-## License
-
-Note that for some entities a company license is needed. [Read the terms here](https://github.com/remotion-dev/remotion/blob/main/LICENSE.md).
+For general Remotion docs, see the [fundamentals page](https://www.remotion.dev/docs/the-fundamentals).

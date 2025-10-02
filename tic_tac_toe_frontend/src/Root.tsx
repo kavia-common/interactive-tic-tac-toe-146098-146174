@@ -1,6 +1,7 @@
 import { Composition } from "remotion";
 import { HelloWorld, myCompSchema } from "./HelloWorld";
 import { Logo, myCompSchema2 } from "./HelloWorld/Logo";
+import { TicTacToe, ticTacToeSchema } from "./TicTacToe";
 
 // Each <Composition> is an entry in the sidebar!
 
@@ -8,16 +9,30 @@ export const RemotionRoot: React.FC = () => {
   return (
     <>
       <Composition
-        // You can take the "id" to render a video:
-        // npx remotion render src/index.ts <id> out/video.mp4
+        id="TicTacToe"
+        component={TicTacToe}
+        durationInFrames={300}
+        fps={30}
+        width={1080}
+        height={1080}
+        schema={ticTacToeSchema}
+        defaultProps={{
+          backgroundColor: "#f9fafb",
+          surfaceColor: "#ffffff",
+          primary: "#2563EB",
+          secondary: "#F59E0B",
+          text: "#111827",
+        }}
+      />
+
+      {/* Keep existing demo compositions for reference */}
+      <Composition
         id="HelloWorld"
         component={HelloWorld}
         durationInFrames={150}
         fps={30}
         width={1920}
         height={1080}
-        // You can override these props for each render:
-        // https://www.remotion.dev/docs/parametrized-rendering
         schema={myCompSchema}
         defaultProps={{
           titleText: "Welcome to Remotion",
@@ -27,7 +42,6 @@ export const RemotionRoot: React.FC = () => {
         }}
       />
 
-      {/* Mount any React component to make it show up in the sidebar and work on it individually! */}
       <Composition
         id="OnlyLogo"
         component={Logo}
