@@ -4,6 +4,7 @@ import { z } from "zod";
 import { zColor } from "@remotion/zod-types";
 import { Board, gameStatus, initialBoard, makeMove, nextPlayer } from "./utils/game";
 import { fonts, gradientBg, theme } from "./theme";
+import { KnightIcon, QueenIcon } from "./components/ChessIcons";
 
 // PUBLIC_INTERFACE
 export const ticTacToeSchema = z.object({
@@ -89,12 +90,7 @@ const cellHoverStyle = {
   boxShadow: "inset 0 2px 0 rgba(17,24,39,0.04), 0 14px 32px rgba(17,24,39,0.08)",
 };
 
-const markStyle = (color: string): React.CSSProperties => ({
-  fontSize: 68,
-  fontWeight: 800,
-  color,
-  textShadow: "0 1px 0 rgba(17,24,39,0.04)",
-});
+
 
 const footerStyle: React.CSSProperties = {
   marginTop: 18,
@@ -105,7 +101,7 @@ const footerStyle: React.CSSProperties = {
   flexWrap: "wrap",
 };
 
-const resetButton = (primary: string, _text: string): React.CSSProperties => ({
+const resetButton = (primary: string): React.CSSProperties => ({
   padding: "10px 16px",
   borderRadius: 12,
   border: "none",
@@ -182,7 +178,13 @@ export const TicTacToe: React.FC<z.infer<typeof ticTacToeSchema>> = (props) => {
         opacity: bgOpacity,
       }}
     >
-      <div style={{ ...cardStyle(props.surfaceColor ?? theme.surface, props.primary ?? theme.primary), transform: `translateY(${cardY}px)`, opacity: cardOpacity }}>
+      <div
+        style={{
+          ...cardStyle(props.surfaceColor ?? theme.surface, props.primary ?? theme.primary),
+          transform: `translateY(${cardY}px)`,
+          opacity: cardOpacity,
+        }}
+      >
         <div style={ribbon(props.secondary ?? theme.secondary)} />
         <div style={headerStyle(props.text ?? theme.text)}>
           <div style={titleStyle(props.primary ?? theme.primary)}>
@@ -191,7 +193,11 @@ export const TicTacToe: React.FC<z.infer<typeof ticTacToeSchema>> = (props) => {
             </svg>
             Tic Tac Toe
           </div>
-          <div style={statusPill(status.done ? (status.winner ? (props.secondary ?? theme.secondary) : "#6B7280") : (props.primary ?? theme.primary))}>
+          <div
+            style={statusPill(
+              status.done ? (status.winner ? (props.secondary ?? theme.secondary) : "#6B7280") : (props.primary ?? theme.primary),
+            )}
+          >
             {status.label}
           </div>
         </div>
@@ -217,16 +223,19 @@ export const TicTacToe: React.FC<z.infer<typeof ticTacToeSchema>> = (props) => {
                 }}
               >
                 {mark ? (
-                  <span style={markStyle(mark === "X" ? (props.primary ?? theme.primary) : (props.secondary ?? theme.secondary))}>
-                    {mark}
-                  </span>
+                  mark === "X" ? (
+                    <KnightIcon size={56} color={props.primary ?? theme.primary} />
+                  ) : (
+                    <QueenIcon size={56} color={props.secondary ?? theme.secondary} />
+                  )
                 ) : (
                   !status.done &&
-                  isActive && (
-                    <span style={{ ...markStyle("#9CA3AF"), fontWeight: 700, fontSize: 40, opacity: 0.5 }}>
-                      {currentTurn}
-                    </span>
-                  )
+                  isActive &&
+                  (currentTurn === "X" ? (
+                    <KnightIcon size={40} color={"#9CA3AF"} />
+                  ) : (
+                    <QueenIcon size={40} color={"#9CA3AF"} />
+                  ))
                 )}
                 {isWinning && (
                   <div
@@ -234,7 +243,7 @@ export const TicTacToe: React.FC<z.infer<typeof ticTacToeSchema>> = (props) => {
                       position: "absolute",
                       inset: 0,
                       borderRadius: 16,
-                      boxShadow: `inset 0 0 0 3px ${(props.secondary ?? theme.secondary)}55`,
+                      boxShadow: `inset 0 0 0 3px ${(props.secondary ?? theme.secondary)}66`,
                       transition: "box-shadow 200ms ease",
                       pointerEvents: "none",
                     }}
@@ -250,7 +259,7 @@ export const TicTacToe: React.FC<z.infer<typeof ticTacToeSchema>> = (props) => {
             <span
               style={{
                 fontSize: 14,
-                color: (props.text ?? theme.text),
+                color: props.text ?? theme.text,
                 opacity: 0.8,
               }}
             >
@@ -287,7 +296,7 @@ export const TicTacToe: React.FC<z.infer<typeof ticTacToeSchema>> = (props) => {
             </button>
             <button
               aria-label="Reset game"
-              style={resetButton(props.primary ?? theme.primary, props.text ?? theme.text)}
+              style={resetButton(props.primary ?? theme.primary)}
               onClick={onReset}
             >
               Reset
